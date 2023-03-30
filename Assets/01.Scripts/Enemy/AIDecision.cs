@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIDecision : MonoBehaviour
+public abstract class AIDecision : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public bool IsReverse = false;
+    protected AIActionData _actionData;
+    protected EnemyBrain _enemyBrain;
+
+    public virtual void SetUp(Transform parentTrm)
     {
-        
+        _actionData = parentTrm.Find("AI").GetComponent<AIActionData>();
+        _enemyBrain = parentTrm.GetComponent<EnemyBrain>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public abstract bool MakeAIDecision();
 }

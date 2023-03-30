@@ -4,15 +4,31 @@ using UnityEngine;
 
 public class AIState : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public List<AIAction> Actions = new List<AIAction>();
+    public List<AITransition> Transitions = new List<AITransition>();
+
+    private EnemyBrain _brain;
+
+    public void SetUp(Transform parentTrm)
     {
-        
+        Actions.ForEach(a => a.SetUp(parentTrm));
+        Transitions.ForEach(t => t.SetUp(parentTrm));
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateState()
     {
-        
+        foreach (AIAction act in Actions)
+        {
+            act.TakeAction();
+        }
+
+        foreach (AITransition t in Transitions)
+        {
+            if (t.CanTransition())
+            {
+                _brain.ChangeState(t.TransitionState);
+            }
+        }
     }
 }

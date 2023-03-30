@@ -2,17 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIAction : MonoBehaviour
+public abstract class AIAction : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    protected AIActionData _actionData;
+
+    public void SetUp(Transform parentTrm)
     {
-        
+        parentTrm.Find("AI").GetComponent<AIActionData>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public abstract void TakeAction();
 }
